@@ -114,6 +114,7 @@ module.exports = function(grunt) {
 		},
 		concurrent: {
 			default: ['nodemon', 'watch'],
+			dev:['nodemon', 'watch'],
 			debug: ['nodemon', 'watch', 'node-inspector'],
 			options: {
 				logConcurrentOutput: true,
@@ -126,7 +127,11 @@ module.exports = function(grunt) {
 			},
 			secure: {
 				NODE_ENV: 'secure'
-			}
+			},
+			dev : {
+      			NODE_ENV : 'development'
+      			/*,DEST     : 'temp'*/
+    		}
 		},
 		mochaTest: {
 			src: watchFiles.mochaTests,
@@ -159,6 +164,9 @@ module.exports = function(grunt) {
 
 	// Default task(s).
 	grunt.registerTask('default', ['lint', 'concurrent:default']);
+
+	// Default task(s).
+	grunt.registerTask('dev', ['env:dev', 'lint', 'concurrent:dev']);
 
 	// Debug task.
 	grunt.registerTask('debug', ['lint', 'concurrent:debug']);

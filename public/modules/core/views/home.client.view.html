@@ -1,14 +1,14 @@
-<section data-ng-controller="HomeController">
+<section data-ng-controller="HomeController" data-ng-init="find()">
 	<div class="jumbotron text-center">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-				<h1>Development Guide</h1>
+				<h1>MyWorld</h1>
 			</div>
 		</div>
 		<br>
 		<div class="row">
 			<p class="lead">
-				To be fast in the web application's production
+				the repository of my live
 			</p>
 		</div>
 		<div class="row">
@@ -18,9 +18,9 @@
 		</div>
 	</div>
 	<div>
-		<h2>Congrats! You've configured and run the sample application.</h2>
-		<p>MEAN.JS is a web application boilerplate, which means you should start changing everything :-)</p>
-		<p>This sample application tracks users and articles.</p>
+		<h2>This place will be the collection of my activities on the web.</h2>
+		<p>I need to have one place where store and organize all the resources of my activities on the web.</p>
+		<p>So I've think to develope this web site with the pourpose to improve my knowledg.</p>
 		<ul>
 			<li>
 				Click
@@ -43,6 +43,69 @@
 			</li>
 		</ul>
 	</div>
+	<div class="row col-md-10 col-md-offset-2" >
+		<div class="row" >
+			<div class="col-sm-6" ng-repeat="alert in alerts">
+				<div class="row">
+					<div class="col-xs-4">
+						<h1 class="pull-right">
+							<button type="button" class="btn" ng-class="alert.color">
+								<i class="glyphicon" ng-class="alert.icon"></i>
+							</button>
+						</h1>
+					</div>
+					<div class="col-xs-8">
+						<h1>{{alert.total}}</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-8 col-xs-offset-4">
+						<span class="tect-muted">{{alert.description}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+<div ng-app ng-init="qty=1;cost=2">
+  <b>Invoice:</b>
+  <div>
+    Quantity: <input type="number" min="0" ng-model="qty">
+  </div>
+  <div>
+    Costs: <input type="number" min="0" ng-model="cost">
+  </div>
+  <div>
+    <b>Total:</b> {{qty * cost | currency}}
+  </div>
+</div>
+
+<!-- data-ng-controller="ArticlesController"  */ -->
+	<section data-ng-init="find()">
+		<div class="page-header">
+			<h1>Articles</h1>
+		</div>
+		<div class="list-group">
+			<a data-ng-repeat="article in articles" data-ng-href="#!/articles/{{article._id}}" class="list-group-item">
+				<small class="list-group-item-text">
+					Posted on
+					<span data-ng-bind="article.created | date:'mediumDate'"></span>
+					by
+					<span data-ng-bind="article.user.displayName"></span>
+				</small>
+				<h4 class="list-group-item-heading" data-ng-bind="article.title"></h4>
+				<p class="list-group-item-text" data-ng-bind="article.content"></p>
+			</a>
+		</div>
+		<div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">
+			No articles yet, why don't you <a href="/#!/articles/create">create one</a>?
+		</div>
+	</section>
+
+
+
 	<div class="row">
 		<div class="col-md-3">
 			<h2>

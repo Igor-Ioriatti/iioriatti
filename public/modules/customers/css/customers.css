@@ -1,0 +1,41 @@
+.cust-profile{
+	font-size: 250px;
+}
+
+.cust-list{
+	font-size: 150px;
+}
+
+.checkbox-left{
+	width:10%;
+	text-align: left;
+}
+
+.merda {
+	background-color: red;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	min-height: 100%;
+}
+
+.modal-backdrop {
+	bottom: 0;
+}
+
+.text-pink{
+	color: hotpink;
+}
+
+.extra-space{
+	padding-bottom:15px;
+	padding-top:15px;
+}
+
+input [type="radio"], input [type="checkbox"]{
+	margin: 0px 0 0 !important;
+}
