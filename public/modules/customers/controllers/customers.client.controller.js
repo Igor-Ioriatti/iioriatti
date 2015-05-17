@@ -105,7 +105,7 @@ customersApp.controller('CustomersController', ['$scope', '$stateParams', 'Authe
 	}
 ]);
 
-customersApp.controller('CustomersCreateController', ['$scope', 'Customers', "Notify",
+customersApp.controller('CustomersCreateController', ['$scope', 'Customers', 'Notify',
 	function($scope, Customers, Notify) {
 		// Create new Customer
 		this.create = function() {

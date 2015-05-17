@@ -1,0 +1,22 @@
+<section data-ng-controller="PermissionsController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="permission.name"></h1>
+	</div>
+	<!--
+	{{authentication.user}}<br><br>
+	{{permission.user._id}}-->
+	<div class="pull-right" data-ng-show="((authentication.user) /*&& (authentication.user._id == permission.user._id)*/)">
+		<a class="btn btn-primary" href="/#!/permissions/{{permission._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<small>
+		<em class="text-muted">
+            <h4 class="list-group-item-heading" data-ng-bind="permission.role"></h4>
+            <h4 class="list-group-item-heading" data-ng-bind="permission.permissions"></h4>
+		</em>
+	</small>
+</section>

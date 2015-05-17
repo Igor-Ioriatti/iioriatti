@@ -21,11 +21,19 @@ var fs = require('fs'),
 	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
-	path = require('path');
+	path = require('path'),
+
+	mongoose = require('mongoose'),	//acl
+    acl = require('acl'), //acl
+    _ = require('lodash') //acl: lodash is really userful	
+	;
 
 module.exports = function(db) {
 	// Initialize express app
-	var app = express();
+	var app = express(), port = process.env.PORT || 3000;
+
+    //acl
+	var dbUri = process.env.MONGOHQ_URL || 'mongodb://@127.0.0.1:27017/iioriatti-dev';
 
 	// Globbing model files
 	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
@@ -68,12 +76,32 @@ module.exports = function(db) {
 	if (process.env.NODE_ENV === 'development') {
 		// Enable logger (morgan)
 		app.use(morgan('dev'));
-
+ 		
 		// Disable views cache
 		app.set('view cache', false);
+
+		//ACL
+		//app.use(express.errorHandler());
 	} else if (process.env.NODE_ENV === 'production') {
 		app.locals.cache = 'memory';
 	}
+
+	var connection = mongoose.createConnection(dbUri);
+
+	connection.on('connected', function() {
+    	console.log('Mongoose connected to ' + dbUri);
+ 	});
+	connection.on('error', console.error.bind(console,
+	  'connection error:'));
+
+	connection.on('disconnected', function() {
+	     console.log('Mongoose disconnected');
+	 });
+	
+	process.on('SIGINT', function() {
+    	console.log('Mongoose disconnected through app termination');
+    	process.exit(0);
+ 	});
 
 	// Request body parsing middleware should be above methodOverride
 	app.use(bodyParser.urlencoded({
@@ -99,6 +127,7 @@ module.exports = function(db) {
 	// use passport session
 	app.use(passport.initialize());
 	app.use(passport.session());
+ 	//app.use(app.router); throw new Error('\'app.router\' is deprecated!\nPlease see the 3.x to 4.
 
 	// connect flash for flash messages
 	app.use(flash());
